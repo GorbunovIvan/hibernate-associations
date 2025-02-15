@@ -15,7 +15,7 @@ import java.util.List;
  * --- The additional "link" table between the two joining entities:
  * CREATE TABLE specialities_persons (
  *     speciality_id INT NOT NULL,
- *     person_id INT NOT NULL,
+ *     person_id INT NOT NULL UNIQUE,
  *     FOREIGN KEY (speciality_id) REFERENCES specialities,
  *     FOREIGN KEY (person_id) REFERENCES persons
  * );

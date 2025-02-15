@@ -22,13 +22,13 @@ import lombok.Setter;
 public class PersonSpeciality {
 
     @Id
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "person_id")
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "person_id")  // Optional, mostly used to just specify the column name (as in @Column)
     private Person person;
 
     @Id
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "speciality_id")
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "speciality_id")  // Optional, mostly used to just specify the column name (as in @Column)
     private Speciality speciality;
 
 

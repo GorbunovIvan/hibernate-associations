@@ -24,11 +24,12 @@ public class Speciality {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToMany(mappedBy = "specialties", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "specialties", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+    @Setter(AccessLevel.PROTECTED)
     private List<Person> persons = new ArrayList<>();
 
 
-    // Utility methods that synchronize both ends whenever another element is added or removed.
+    // Utility methods that synchronize both ends whenever another side element is added or removed.
     public void addPersons(Collection<Person> persons) {
         persons.forEach(this::addPerson);
     }

@@ -23,7 +23,7 @@ public class Person {
     private Integer id;
 
     // Means "FOREIGN KEY (speciality_id) REFERENCES specialties"
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "speciality_id")  // Optional, mostly used to just specify the column name (as in @Column)
     private Speciality speciality;
 }

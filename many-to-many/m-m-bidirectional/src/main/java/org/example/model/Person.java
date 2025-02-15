@@ -32,12 +32,13 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
     @JoinTable(  // Optional, mostly used to just specify the names of the table and its columns
             name = "persons_specialties",
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "speciality_id")
     )
+    @Setter(AccessLevel.PROTECTED)
     private List<Speciality> specialties = new ArrayList<>();
 
 
