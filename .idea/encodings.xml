@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/many-to-many/m-m-bidirectional/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/many-to-many/m-m-bidirectional/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/many-to-many/m-m-custom/m-m-custom-unidirectional/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/many-to-many/m-m-custom/m-m-custom-unidirectional/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/many-to-many/m-m-custom/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/many-to-many/m-m-custom/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/many-to-many/m-m-unidirectional/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/many-to-many/m-m-unidirectional/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/many-to-many/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/many-to-many/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/many-to-one/m-o-bidirectional/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/many-to-one/m-o-bidirectional/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/many-to-one/m-o-unidirectional/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/many-to-one/m-o-unidirectional/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/many-to-one/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/many-to-one/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/one-to-many/o-m-unidirectional/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/one-to-many/o-m-unidirectional/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/one-to-many/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/one-to-many/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/one-to-one/o-o-bidirectional/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/one-to-one/o-o-bidirectional/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/one-to-one/o-o-unidirectional/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/one-to-one/o-o-unidirectional/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/one-to-one/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/one-to-one/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>
