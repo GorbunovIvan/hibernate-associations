@@ -14,14 +14,14 @@ public class OneToOneUnidirectional {
         try (var em = emf.createEntityManager()) {
             em.getTransaction().begin();
 
-            // Creating "PersonDetails" first
-            var personDetails = new PersonDetails();
-            em.persist(personDetails);  // If Person doesn't Cascade "persisting" to personDetails, then we must persist them manually first.
-
-            // Creating "Person"
+            // Creating "Person" first
             var person = new Person();
-            person.setPersonDetails(personDetails);
-            em.persist(person);
+            em.persist(person);  // If PersonDetails doesn't Cascade "persisting" to Person, then we must persist them manually first.
+
+            // Creating "PersonDetails"
+            var personDetails = new PersonDetails();
+            personDetails.setPerson(person);
+            em.persist(personDetails);
 
             em.getTransaction().commit();
         }

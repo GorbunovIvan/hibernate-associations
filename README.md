@@ -1,6 +1,6 @@
 <p>
 All modules use the same database: "hibernate-associations", but different schemas.<br/>
-So, create the following schemas in the database if they don't yet exist:
+So, create the following empty schemas in the database if they don't yet exist:
 </p>
 
 - one_to_one_unidirectional
