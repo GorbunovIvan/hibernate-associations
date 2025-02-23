@@ -47,7 +47,9 @@ public class Person {
         specialties.forEach(this::addSpeciality);
     }
     public void addSpeciality(Speciality speciality) {
-        specialties.add(speciality);
+        if (!specialties.contains(speciality)) {
+            specialties.add(speciality);
+        }
         speciality.getPersons().add(this);
     }
 

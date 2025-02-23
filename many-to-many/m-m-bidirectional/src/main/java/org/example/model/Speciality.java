@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -24,23 +23,7 @@ public class Speciality {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToMany(mappedBy = "specialties", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "specialties")
     @Setter(AccessLevel.PROTECTED)
     private List<Person> persons = new ArrayList<>();
-
-
-    // Utility methods that synchronize both ends whenever another side element is added or removed.
-    public void addPersons(Collection<Person> persons) {
-        persons.forEach(this::addPerson);
-    }
-    public void addPerson(Person person) {
-        person.addSpeciality(this);
-    }
-
-    public void removePersons(Collection<Person> persons) {
-        persons.forEach(this::removePerson);
-    }
-    public void removePerson(Person person) {
-        person.removeSpeciality(this);
-    }
 }

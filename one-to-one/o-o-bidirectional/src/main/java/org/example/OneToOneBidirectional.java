@@ -11,17 +11,18 @@ public class OneToOneBidirectional {
 
     public static void main(String[] args) {
 
-        persistingAllFromPerson();
-//        persistingAllFromPersonDetails();
+        persistingPerson();
+        fetching();
 
+        removingPersonDetails();
         fetching();
 
         emf.close();
     }
 
-    static void persistingAllFromPerson() {
+    static void persistingPerson() {
 
-        System.out.println("\nPersisting from Person:");
+        System.out.println("\nPersisting Person:");
 
         try (var em = emf.createEntityManager()) {
             em.getTransaction().begin();
@@ -39,21 +40,23 @@ public class OneToOneBidirectional {
         }
     }
 
-    static void persistingAllFromPersonDetails() {
+    static void removingPersonDetails() {
 
-        System.out.println("\nPersisting from PersonDetails:");
+        System.out.println("\nRemoving PersonDetails from Person using 'orphanRemoval' (merging):");
 
         try (var em = emf.createEntityManager()) {
             em.getTransaction().begin();
 
-            // Creating "Person"
-            var person = new Person();
-            em.persist(person);  // If PersonDetails doesn't Cascade "persisting" to person, then we must persist them manually first.
+            var person = em.find(Person.class, 1);
+            person.removePersonDetails();
+            person = em.merge(person);
 
-            // Creating "PersonDetails"
-            var personDetails = new PersonDetails();
-            personDetails.setPerson(person);
-            em.persist(personDetails);
+            em.flush();
+
+            var personDetailsAll = em.createQuery("FROM PersonDetails", PersonDetails.class).getResultList();
+            if (!personDetailsAll.isEmpty()) {
+                System.out.println("PersonDetails was not removed from the database!");
+            }
 
             em.getTransaction().commit();
         }
@@ -66,8 +69,8 @@ public class OneToOneBidirectional {
         try (var em = emf.createEntityManager()) {
             em.getTransaction().begin();
 
-            var personDetails = em.find(PersonDetails.class, 1);
-            System.out.println("PersonDetails is referenced by such a person: " + personDetails.getPerson());
+            var person = em.find(Person.class, 1);
+            System.out.println("Person: " + person);
 
             em.getTransaction().commit();
         }

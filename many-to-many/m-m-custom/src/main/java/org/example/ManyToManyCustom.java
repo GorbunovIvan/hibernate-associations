@@ -3,6 +3,7 @@ package org.example;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.example.model.Person;
+import org.example.model.PersonSpeciality;
 import org.example.model.Speciality;
 
 import java.util.ArrayList;
@@ -14,15 +15,15 @@ public class ManyToManyCustom {
 
     public static void main(String[] args) {
 
-        persistingAllFromPerson();
-//        persistingAllFromSpeciality();
-
+        persistingFromPerson();
         fetching();
+
+        removingPersonSpeciality();
 
         emf.close();
     }
 
-    static void persistingAllFromPerson() {
+    static void persistingFromPerson() {
 
         System.out.println("\nPersisting from Person:");
 
@@ -58,36 +59,31 @@ public class ManyToManyCustom {
         }
     }
 
-    static void persistingAllFromSpeciality() {
+    static void removingPersonSpeciality() {
 
-        System.out.println("\nPersisting from Speciality:");
+        System.out.println("\nRemoving PersonSpeciality from Person using 'orphanRemoval' (merging):");
 
         try (var em = emf.createEntityManager()) {
             em.getTransaction().begin();
 
-            // Creating "Persons" first
-            var persons = new ArrayList<Person>();
-            for (int i = 0; i < 10; i++) {
-                var person = new Person();
-                persons.add(person);
-                em.persist(person);  // If Person doesn't Cascade "persisting" to specialties, then we must persist them manually first.
-            }
+            var person = em.find(Person.class, 1);
+            var speciality = person.getSpecialties().getFirst();
+            person.removeSpeciality(speciality);
 
-            // Creating "specialties"
-            for (int i = 0; i < 10; i++) {
+            System.out.printf("\nRemoving link between person (id='%d') and speciality (id='%d'):\n", person.getId(), speciality.getId());
+            person = em.merge(person);
 
-                var speciality = new Speciality();
+            em.flush();
 
-                // Adding at most 3 random persons to a speciality
-                for (int iP = 0; iP < 3; iP++) {
-                    int randomPersonIndex = new Random().nextInt(persons.size()-1);
-                    var person = persons.get(randomPersonIndex);
-                    if (!speciality.getPersons().contains(person)) {
-                        speciality.addPerson(person);
-                    }
-                }
+            var personSpecialtyFound = em.createQuery(
+                    "FROM PersonSpeciality " +
+                    "WHERE person.id = :personId AND speciality.id = :specialityId", PersonSpeciality.class)
+                    .setParameter("personId", person.getId())
+                    .setParameter("specialityId", speciality.getId())
+                    .getResultList();
 
-                em.persist(speciality);
+            if (!personSpecialtyFound.isEmpty()) {
+                System.out.println("PersonSpecialty was not removed from the database!");
             }
 
             em.getTransaction().commit();

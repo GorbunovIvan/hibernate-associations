@@ -31,7 +31,7 @@ public class Person {
     private List<PersonSpeciality> personsSpecialties = new ArrayList<>();
 
 
-    // Utility methods that synchronize both ends whenever a parent element is retrieved, added or removed.
+    // Utility methods that synchronize both ends whenever a parent element is retrieved, added or removed
     @ToString.Include(name = "specialties")
     public List<Speciality> getSpecialties() {
         return personsSpecialties.stream()

@@ -23,7 +23,7 @@ public class Person {
     private Integer id;
 
     // Means "FOREIGN KEY (speciality_id) REFERENCES specialties"
-    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })  // Use PERSIST only if "speciality" has no unique constraints
     @JoinColumn(name = "speciality_id")  // Optional, mostly used to just specify the column name (as in @Column)
     private Speciality speciality;
 }

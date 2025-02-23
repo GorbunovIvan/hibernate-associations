@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -30,27 +29,12 @@ public class Speciality {
     @ToString.Exclude
     private List<PersonSpeciality> personsSpecialties = new ArrayList<>();
 
-    // Utility methods that synchronize both ends whenever a parent element is retrieved, added or removed.
+
+    // Utility methods that synchronize both ends whenever a parent element is retrieved
     public List<Person> getPersons() {
         return personsSpecialties.stream()
                 .map(PersonSpeciality::getPerson)
                 .distinct()
                 .toList();
-    }
-
-    public void addPersons(Collection<Person> persons) {
-        persons.forEach(this::addPerson);
-    }
-    public void addPerson(Person person) {
-        var personSpeciality = new PersonSpeciality(person, this);
-        personSpeciality.addAssociationToBothSides();
-    }
-
-    public void removePersons(Collection<Person> persons) {
-        persons.forEach(this::removePerson);
-    }
-    public void removePerson(Person person) {
-        var personSpeciality = new PersonSpeciality(person, this);
-        personSpeciality.removeAssociationFromBothSides();
     }
 }

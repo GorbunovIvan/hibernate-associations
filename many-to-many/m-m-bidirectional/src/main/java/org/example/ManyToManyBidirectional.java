@@ -14,15 +14,14 @@ public class ManyToManyBidirectional {
 
     public static void main(String[] args) {
 
-        persistingAllFromPerson();
-//        persistingAllFromSpeciality();
+        persistingFromPerson();
 
         fetching();
 
         emf.close();
     }
 
-    static void persistingAllFromPerson() {
+    static void persistingFromPerson() {
 
         System.out.println("\nPersisting from Person:");
 
@@ -52,42 +51,6 @@ public class ManyToManyBidirectional {
                 }
 
                 em.persist(person);
-            }
-
-            em.getTransaction().commit();
-        }
-    }
-
-    static void persistingAllFromSpeciality() {
-
-        System.out.println("\nPersisting from Speciality:");
-
-        try (var em = emf.createEntityManager()) {
-            em.getTransaction().begin();
-
-            // Creating "Persons" first
-            var persons = new ArrayList<Person>();
-            for (int i = 0; i < 10; i++) {
-                var person = new Person();
-                persons.add(person);
-                em.persist(person);  // If Person doesn't Cascade "persisting" to specialties, then we must persist them manually first.
-            }
-
-            // Creating "specialties"
-            for (int i = 0; i < 10; i++) {
-
-                var speciality = new Speciality();
-
-                // Adding at most 3 random persons to a speciality
-                for (int iP = 0; iP < 3; iP++) {
-                    int randomPersonIndex = new Random().nextInt(persons.size()-1);
-                    var person = persons.get(randomPersonIndex);
-                    if (!speciality.getPersons().contains(person)) {
-                        speciality.addPerson(person);
-                    }
-                }
-
-                em.persist(speciality);
             }
 
             em.getTransaction().commit();

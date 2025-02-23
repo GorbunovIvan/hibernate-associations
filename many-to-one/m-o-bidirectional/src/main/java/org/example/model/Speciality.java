@@ -25,6 +25,7 @@ public class Speciality {
     private Integer id;
 
     @OneToMany(mappedBy = "speciality", cascade = CascadeType.ALL)  // This single annotation makes the association "Bidirectional"
+    @Setter(AccessLevel.PRIVATE)
     private List<Person> persons = new ArrayList<>();
 
 
@@ -33,8 +34,10 @@ public class Speciality {
         persons.forEach(this::addPerson);
     }
     public void addPerson(Person person) {
-        persons.add(person);
         person.setSpeciality(this);
+        if (!persons.contains(person)) {
+            persons.add(person);
+        }
     }
 
     public void removePersons(Collection<Person> persons) {

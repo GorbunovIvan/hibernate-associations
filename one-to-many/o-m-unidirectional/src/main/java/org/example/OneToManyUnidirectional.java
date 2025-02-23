@@ -51,7 +51,8 @@ public class OneToManyUnidirectional {
             em.getTransaction().begin();
 
             var speciality = em.find(Speciality.class, 1);
-            System.out.println("Specialty has such persons: " + speciality.getPersons());
+            System.out.println("Specialty (id=1) has such persons:");
+            speciality.getPersons().forEach(System.out::println);
 
             em.getTransaction().commit();
         }

@@ -36,7 +36,7 @@ public class ManyToOneBidirectional {
             for (int i = 0; i < 5; i++) {
                 var person = new Person();
                 person.setSpeciality(speciality);
-                em.persist(person);  // If Speciality doesn't Cascade "persisting" to persons, then we must persist them manually first.
+                em.persist(person);
             }
 
             em.getTransaction().commit();
@@ -75,7 +75,8 @@ public class ManyToOneBidirectional {
             em.getTransaction().begin();
 
             var speciality = em.find(Speciality.class, 1);
-            System.out.println("Speciality has such persons: " + speciality.getPersons());
+            System.out.println("Speciality (id=1) has such persons:");
+            speciality.getPersons().forEach(System.out::println);
 
             em.getTransaction().commit();
         }
