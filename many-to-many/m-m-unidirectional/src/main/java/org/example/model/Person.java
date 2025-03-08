@@ -2,6 +2,8 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +33,12 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)  // Use PERSIST only if "speciality" has no unique constraints
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })  // Use PERSIST only if "speciality" has no unique constraints
     @JoinTable(  // Optional, mostly used to just specify the names of the table and its columns
             name = "persons_specialties",
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "speciality_id")
     )
+    @Fetch(FetchMode.SUBSELECT)  // To avoid "N+1", when "specialties" are fetched for "persons"
     private List<Speciality> specialties = new ArrayList<>();
 }

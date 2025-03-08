@@ -2,6 +2,8 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,6 +40,7 @@ public class Person {
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "speciality_id")
     )
+    @Fetch(FetchMode.SUBSELECT)  // To avoid "N+1", when "specialties" are fetched for "persons"
     @Setter(AccessLevel.PROTECTED)
     private List<Speciality> specialties = new ArrayList<>();
 

@@ -2,6 +2,8 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,6 +27,7 @@ public class Person {
     private Integer id;
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)  // To avoid "N+1", when "personsSpecialties" are fetched for "persons"
     @Getter(AccessLevel.PROTECTED)
     @Setter(AccessLevel.PROTECTED)
     @ToString.Exclude

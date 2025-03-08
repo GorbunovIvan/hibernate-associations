@@ -2,6 +2,7 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "specialties")
+@BatchSize(size = 20)  // To mitigate "N+1", when "specialties" are fetched for "persons"
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
 @ToString(exclude = { "persons" })
@@ -26,6 +28,7 @@ public class Speciality {
 
     @OneToMany(mappedBy = "speciality", cascade = CascadeType.ALL)  // This single annotation makes the association "Bidirectional"
     @Setter(AccessLevel.PRIVATE)
+    @BatchSize(size = 20)  // To mitigate "N+1", when "persons" are fetched for "specialties"
     private List<Person> persons = new ArrayList<>();
 
 

@@ -2,6 +2,7 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class Speciality {
     private Integer id;
 
     @OneToMany(mappedBy = "speciality", cascade = CascadeType.ALL, orphanRemoval = true)
+    @BatchSize(size = 20)  // To mitigate "N+1", when "personsSpecialties" are fetched for "specialties"
     @Getter(AccessLevel.PROTECTED)
     @Setter(AccessLevel.PROTECTED)
     @ToString.Exclude

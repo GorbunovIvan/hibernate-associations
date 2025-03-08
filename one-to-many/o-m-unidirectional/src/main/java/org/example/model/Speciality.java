@@ -2,6 +2,7 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,5 +33,6 @@ public class Speciality {
     private Integer id;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @BatchSize(size = 20)  // To mitigate "N+1", when "persons" are fetched for "specialties"
     private List<Person> persons = new ArrayList<>();
 }

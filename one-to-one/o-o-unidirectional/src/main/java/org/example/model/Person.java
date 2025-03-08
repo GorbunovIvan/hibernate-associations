@@ -2,6 +2,7 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 /**
  * <pre>
@@ -11,6 +12,7 @@ import lombok.*;
  */
 @Entity
 @Table(name = "persons")
+@BatchSize(size = 20)  // To mitigate "N+1", when "persons" are fetched for "personDetails"
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
 @ToString

@@ -2,6 +2,7 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 /**
  * <pre>
@@ -11,6 +12,7 @@ import lombok.*;
  */
 @Entity
 @Table(name = "persons")
+@BatchSize(size = 20)  // To mitigate "N+1", when "persons" are fetched for "personDetails"
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
 @ToString
@@ -21,6 +23,8 @@ public class Person {
     private Integer id;
 
     @OneToOne(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)  // This single annotation makes the association "Bidirectional"
+    // Results in "N+1" if the "FROM Person" query is executed without "JOIN FETCH" or Entity Graph involved,
+    // If you only want to use Static definition tools, there is no workaround to fix "N+1" here.
     private PersonDetails personDetails;
 
 
